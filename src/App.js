@@ -1,25 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
+import Todo from './components/Todo'
+import { Route, Routes } from 'react-router-dom';
+import { connect } from 'react-redux';
+import AllMeetups from './pages/AllMeetups';
+import Favorites from './pages/Favorites';
+import NewMeetups from './pages/NewMeetups';
+import Layout from './components/layout/Layout';
+import { incrementCounter } from './redux/counter/counter'
 
-function App() {
+function App(props) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={()=>props.incrementCounter()}>{props.count}</button>
+     <Layout>
+        <Routes>
+          <Route path="/" element={<AllMeetups />} />
+          <Route path="/new-meetups" element={<NewMeetups />} />
+          <Route path="/favorites" element={<Favorites />} />
+        </Routes>
+      </Layout>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    count: state.counter.count
+  }
+}
+
+const mapDispatchToProps = {
+    incrementCounter: incrementCounter
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
