@@ -3,7 +3,7 @@ import { ADD_MEETUP } from "../constants"
 import NewMeetupForm from '../components/meetups/NewMeetupForm'
 
 
-function NewMeetupsPage() {
+function User() {
     
     const navigate = useNavigate()
 
@@ -34,4 +34,4 @@ function NewMeetupsPage() {
     </section>)
 }
 
-export default NewMeetupsPage;
+export default User;

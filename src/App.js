@@ -1,11 +1,11 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Favorites from './pages/Upload';
 import Layout from './components/layout/Layout';
 import { incrementCounter } from './redux/counter/counter'
 import ReelsPage from './pages/Reels';
 import Upload from './pages/Upload'
+import User from './pages/User'
 
 function App(props) {
   return (
@@ -14,7 +14,7 @@ function App(props) {
         <Routes>
           <Route path="/" element={<ReelsPage />} />
           <Route path="/upload" element={<Upload/>} />
-          <Route path="/user" element={<Favorites />} />
+          <Route path="/user" element={<User />} />
         </Routes>
       </Layout>
     </div>
