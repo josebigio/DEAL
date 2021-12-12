@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 
 import classes from './MainNavigation.module.css'
+import { FaUserCircle, FaCamera } from "react-icons/fa";
+
 
 function MainNavigation(props) {
   
@@ -14,13 +16,13 @@ function MainNavigation(props) {
         <nav>
           <ul>
             <li>
-              <Link to='/'>All Meetups</Link>
+              <Link to='/'>Reels</Link>
             </li>
             <li>
-              <Link to='/new-meetups'>Add New Meetup</Link>
+              <Link to='/upload'><FaCamera/></Link>
             </li>
             <li>
-              <Link to='/favorites'>My Favorites</Link>
+              <Link to='/user'><FaUserCircle/></Link>
             </li>
           </ul>
         </nav>

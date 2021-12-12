@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { getAllReels, uploadReel } from '../redux/reels'
 import { connect } from 'react-redux'
 
-function Favorites(props) {
-    console.log("FAVORITES PROPS: ", props)
+function Upload(props) {
     const [file, setFile] = useState()
 
     function uploadFile(event) {
@@ -78,4 +77,4 @@ const mapDispatchToProps = {
     uploadReel: uploadReel
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps, mapDispatchToProps)(Upload);
