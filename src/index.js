@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { FavoritesContextProvider } from './store/favorites-context'
 import { UserContextProvider } from './store/user-context'
 import store from './redux/configureStore'
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -29,4 +29,5 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-serviceWorker.register();
+serviceWorkerRegistration.register();
+
