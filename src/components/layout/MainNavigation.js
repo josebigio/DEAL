@@ -11,7 +11,6 @@ function MainNavigation(props) {
     console.log(props)
     return (
       <header className={classes.header}>
-        <div className={classes.logo}>React Meetups {props.user ? props.user.name : "Anon"}</div>
         <nav>
           <ul>
             <li>
