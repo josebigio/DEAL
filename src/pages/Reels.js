@@ -7,6 +7,7 @@ function ReelsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [meetups, setMeetups] = useState([])
 
+  console.log(ALL_MEETUPS)
   useEffect(()=>{
     fetch(
       ALL_MEETUPS,

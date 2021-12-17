@@ -8,7 +8,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { FavoritesContextProvider } from './store/favorites-context'
 import { UserContextProvider } from './store/user-context'
 import store from './redux/configureStore'
+import dotenv from 'dotenv'
+import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
+
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+dotenv.config()
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,7 +21,9 @@ ReactDOM.render(
     <FavoritesContextProvider>
       <UserContextProvider>
         <BrowserRouter>
+        <Auth0ProviderWithHistory>
           <App />
+          </Auth0ProviderWithHistory>
         </BrowserRouter>
       </UserContextProvider>
     </FavoritesContextProvider>
@@ -29,5 +36,5 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-serviceWorkerRegistration.register();
+// serviceWorkerRegistration.register();
 

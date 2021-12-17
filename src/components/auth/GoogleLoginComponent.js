@@ -1,6 +1,4 @@
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-import { useState, useContext} from 'react'
-import UserContext from '../../store/user-context'
 import { connect } from 'react-redux';
 import { signIn, signOut } from "../../redux/user";
 
@@ -8,12 +6,7 @@ const CLIENT_ID = "130250325381-7860c3nvmvs4nvrdmrtt9a5otp15ss92.apps.googleuser
 
 function GoogleLoginComponent(props) {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [userInfo, setUserInfo] = useState({
-        name: "",
-        emailId: "",
-    })
-    const userContext = useContext(UserContext)
+
 
     // Success Handler
     function responseGoogleSuccess(response){
@@ -22,39 +15,30 @@ function GoogleLoginComponent(props) {
             name: response.profileObj.name,
             emailId: response.profileObj.email,
         };
-        setIsLoggedIn(true)
-        setUserInfo(userInfo)
-        props.dispatch(signIn(userInfo))
-        
+        props.signIn(userInfo, response.tokenId)
     };
 
     // Error Handler
     function responseGoogleError(response) {
         console.log(response);
-        setIsLoggedIn(false)
-        setUserInfo({
-            name: "",
-            emailId: "",
-        })
+        props.signOut()
+        
     };
 
     // Logout Session and Update State
     function logout(response){
         console.log(response);
-        props.dispatch(signOut())
-        setIsLoggedIn(false)
-        setUserInfo({
-            name: "",
-            emailId: "",
-        })
+        props.signOut();
     };
+
+    console.log("GoogleLoginComponent. props:", props)
 
     return (
         <div className="row mt-5">
             <div className="col-md-12">
-                {isLoggedIn ? (
+                {props.isSignedIn ? (
                     <div>
-                        <h1>Welcome, {userInfo.name}</h1>
+                        <h1>Welcome, {props.userInfo.name}</h1>
 
                         <GoogleLogout
                             clientId={CLIENT_ID}
@@ -67,9 +51,9 @@ function GoogleLoginComponent(props) {
                         clientId={CLIENT_ID}
                         buttonText="Sign In with Google"
                         onSuccess={responseGoogleSuccess}
-                        onFailure={responseGoogleError}
-                        isSignedIn={true}
+                        onFailure={(error)=>console.log("Unable to init googleLogin", error)}
                         cookiePolicy={"single_host_origin"}
+                        isSignedIn={true}
                     />
                 )}
             </div>
@@ -77,4 +61,17 @@ function GoogleLoginComponent(props) {
     );
 }
 
-export default connect()(GoogleLoginComponent);
+const mapStateToProps = (state) => {
+    return {
+      userInfo: state.user.userInfo,
+      isSignedIn: state.user.isSignedIn
+    }
+  }
+
+
+const mapDispatchToProps = {
+    signIn: signIn,
+    signOut: signOut
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleLoginComponent);

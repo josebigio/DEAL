@@ -1,6 +1,4 @@
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import UserContext from '../../store/user-context'
 import { connect } from 'react-redux';
 
 
@@ -10,7 +8,7 @@ import { FaUserCircle, FaCamera } from "react-icons/fa";
 
 function MainNavigation(props) {
   
-    console.log(props)
+    console.log("MainNavigation. Props:", props)
     return (
       <header className={classes.header}>
         <nav>
@@ -32,7 +30,7 @@ function MainNavigation(props) {
 
   const mapStateToProps = (state) => {
     return {
-      user: state.user.user
+      userInfo: state.user.userInfo
     }
   }
   
