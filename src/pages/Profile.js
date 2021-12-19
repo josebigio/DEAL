@@ -6,6 +6,15 @@ const Profile = () => {
   const { user } = useAuth0();
   const { name, picture, email } = user;
 
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((position)=>{
+      console.log("user position", position)
+    })
+  }
+  else {
+    console.log("user location not available")
+  }
+
   return (
     <div>
       <div className="row align-items-center profile-header">

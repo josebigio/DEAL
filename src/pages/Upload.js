@@ -2,6 +2,7 @@ import GoogleLoginComponent from "../components/auth/GoogleLoginComponent"
 import { useState } from 'react'
 import { getAllReels, uploadReel } from '../redux/reels'
 import { connect } from 'react-redux'
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 
 function Upload(props) {
     const [file, setFile] = useState()
@@ -77,4 +78,4 @@ const mapDispatchToProps = {
     uploadReel: uploadReel
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Upload);
+export default withAuthenticationRequired(connect(mapStateToProps, mapDispatchToProps)(Upload));

@@ -7,8 +7,6 @@ import ReelsPage from './pages/Reels';
 import Upload from './pages/Upload'
 import Profile from './pages/Profile'
 
-
-
 function App(props) {
   console.log("APP", props);
   return (
@@ -27,7 +25,8 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    count: state.counter.count
+    count: state.counter.count,
+    location: state.location
   }
 }
 

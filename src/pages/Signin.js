@@ -1,4 +1,5 @@
 import GoogleLoginComponent from "../components/auth/GoogleLoginComponent"
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 
 function Signin() {
     
@@ -8,4 +9,4 @@ function Signin() {
     </section>)
 }
 
-export default Signin;
+export default withAuthenticationRequired(Signin);

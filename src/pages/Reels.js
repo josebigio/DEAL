@@ -1,32 +1,41 @@
 import { useState, useEffect } from 'react';
 import MeetupList from "../components/meetups/MeetupList";
 import {ALL_MEETUPS} from "../constants"
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 
 function ReelsPage() {
   console.log("ALLMEETUPS INIT")
   const [isLoading, setIsLoading] = useState(true)
   const [meetups, setMeetups] = useState([])
 
-  console.log(ALL_MEETUPS)
+  const { getAccessTokenSilently } = useAuth0();
+
+  const getAllReels = async ()=> {
+    console.log("getAllReels2")
+    try {
+      const token = await getAccessTokenSilently();
+      console.log("token: ", token)
+      const response = await fetch(
+        ALL_MEETUPS,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      const data = await response.json();
+      setIsLoading(false)
+      setMeetups(data ? data : [])
+    }catch(error) {
+      console.error("error getting user token", error)
+      setIsLoading(false)
+      setMeetups([])
+    }
+  
+  }
+
   useEffect(()=>{
-    fetch(
-      ALL_MEETUPS,
-          {  
-              method:'GET'
-          }
-      ).then((response) => {
-          return response.json()
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          setIsLoading(false)
-          setMeetups([])
-        })
-        .then(data => {
-          console.log("data: ", data)
-          setIsLoading(false)
-          setMeetups(data ? data : [])
-        })
+    getAllReels();
   },[])
  
 
@@ -37,4 +46,4 @@ function ReelsPage() {
         </section>
 }
 
-export default ReelsPage;
+export default withAuthenticationRequired(ReelsPage);
